@@ -1,0 +1,152 @@
+ <div class="bottom">
+       <!--  <div class="left">
+          <h1>dashboard</h1>
+        </div> -->
+        <div class="right">
+          <h1>dashboard /</h1>
+          <a href="#">Sales Product List</a>
+        </div>
+      </div>
+
+ <div id="real" ng-controller="batchCtrl">
+ 	 
+<div class="container">
+  <div class="row articles" style="margin-top: 10px;">
+    <div class="col-md-12 breadcrumbe " ng-show="saleitems.length==0">
+      <p class="text-center">Sorry! No Details</p>
+    </div>
+<div id="qwerty" style="width: 100%;">
+  
+
+    <div class="conatiner">
+      <div class="row">
+        <h5>Invoice Number : </h5>
+        <h5>{{saleitems[0].invoice}}</h5>
+      </div>
+    </div>
+   
+   <table class="table list"  ng-show="saleitems.length>0">
+
+        <thead>
+          <tr>
+           
+            <th>Product Name</th>          
+            <th>Basic Price</th>
+            <th>Sale Price</th> 
+             <th>Quantity</th> 
+              <th>Basic Total</th>    
+            <th>Tax(%)</th>
+            <th>Tax Amount</th>  
+              
+            <th>Total Amount</th>            
+           
+          </tr>
+        </thead>
+        <tbody>
+        <!-- <tr ng-repeat="user in orders | reverse | filter:searchText" ng-hide="user.status=='Closed'"> -->
+          <tr ng-repeat="item in saleitems">
+           
+           
+            <td>{{item.p_name}}</td>
+            <td>{{item.basic_price}}</td>
+            <td>{{item.sale_price}}</td>
+            <td>{{item.sale_quantity}}</td>
+            <td>{{item.basic_total}}</td>
+            <td>{{item.tax}}%</td>
+            <td>{{item.taxTotal}}</td>
+            
+            <td>{{item.totalPrice}}</td>
+           
+        </tr>
+      
+         
+        
+        </tbody>
+      </table>
+      
+      <div style="float: right;">
+        
+          <p><b> Grand Total : </b>{{ saleitems | sumByColumn: 'totalPrice' }}</p>
+      </div>
+     
+<br><br>
+
+     
+
+      <table class="table table-bordered other_table">
+                  <tbody>
+                   
+                    <tr>
+                      <td rowspan="2" class="numeric heading"><b>GST Tax(%)</b></td>
+                      <td rowspan="2" class="numeric heading"><b>GST Taxable value</b></td>
+                     
+                      <td colspan="2" class="numeric heading"><b>Central Tax (CGST)</b></td>
+                      
+                        <td colspan="2" class="numeric heading"><b>State Tax (SGST)</b></td>
+                    
+                       
+                      
+                    </tr>
+                    <tr>
+                      
+                      <td class="heading">Tax(%)</td>
+                      <td class="heading">Amount</td>
+                      
+                        <td class="heading">Tax(%)</td>
+                        <td class="heading">Amount</td>
+                       
+                     
+                       
+                      
+                    </tr>
+                   
+                       <tr ng-hide="sumTaxes[0].total1==null">
+                          <td>5</td>
+                          <td>{{item123.sumTaxTotal=sumTaxes[0].total1+sumTaxes[0].total1}}</td>
+                          <td style="display: none;">{{item123.sumBasicTotal=sumTaxes[0].basic1}}</td>
+                          <td>2.5</td>
+                          <td>{{item123.ab=sumTaxes[0].total1}}</td>
+                          <td>2.5</td>
+                          <td>{{item123.ac=sumTaxes[0].total1}}</td>         
+                      </tr>
+                      <tr ng-hide="sumTaxes1[0].total2==null">            
+                        <td>12</td>
+                        <td>{{item123.sumTaxTotal1=sumTaxes1[0].total2+sumTaxes1[0].total2}}</td>
+                         <td style="display: none;">{{item123.sumBasicTotal1=sumTaxes1[0].basic2}}</td>
+                        <td>6</td>
+                        <td>{{item123.ba=sumTaxes1[0].total2}}</td>
+                        <td>6</td>
+                        <td>{{item123.bc=sumTaxes1[0].total2}}</td>         
+                    </tr>
+                    <tr ng-hide="sumTaxes2[0].total3==null">            
+                        <td>18</td>
+                        <td>{{item123.sumTaxTotal2=sumTaxes2[0].total3+sumTaxes2[0].total3}}</td>
+                         <td style="display: none;">{{item123.sumBasicTotal2=sumTaxes2[0].basic3}}</td>
+                        <td>9</td>
+                        <td>{{item123.ca=sumTaxes2[0].total3}}</td>
+                        <td>9</td>
+                        <td>{{item123.cb=sumTaxes2[0].total3}}</td>         
+                    </tr>
+                     <tr ng-hide="sumTaxes3[0].total4==null">            
+                        <td>28</td>
+                        <td>{{item123.sumTaxTotal3=sumTaxes3[0].total4+sumTaxes3[0].total4}}</td>
+                         <td style="display: none;">{{item123.sumBasicTotal3=sumTaxes3[0].basic4}}</td>
+                        <td>14</td>
+                        <td>{{item123.da=sumTaxes3[0].total4}}</td>
+                        <td>14</td>
+                        <td>{{item123.db=sumTaxes3[0].total4}}</td>         
+                    </tr>
+                      
+                    
+                  </tbody>
+                </table>
+                </div>
+  </div>
+</div>
+<a href="#/receipt"><button class="btn btn-primary" ng-click="hello123()">
+    <span class="glyphicon glyphicon-share"></span> Print
+  </button></a>
+<!-- <button class="btn btn-link" ng-click="exportToExcel('#qwerty')">
+    <span class="glyphicon glyphicon-share"></span> Export to Excel
+  </button> -->
+</div>

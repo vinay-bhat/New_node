@@ -1,0 +1,72 @@
+<div class="sidebar non_print" ng-controller="batchCtrl">
+    <!-- start with head -->
+    <div class="head">
+      <div class="logo">
+        <p style="text-align: center; font-size: 18px; color: #ae55ff"><b>Sri Vigneshwara Enterprises</b></p>
+      </div>
+     
+    </div>
+   
+    <div id="list">
+      <ul class="nav flex-column">
+      
+        <li class="nav-item"><a data-target="#menu3" class="nav-link collapsed" data-toggle="collapse"><i class="fa fa-user-circle-o"></i>Supplier Details<span class="sub-ico"><i class="fa fa-angle-down"></i></span></a></li>
+      
+        <li class="sub collapse" id="menu3">
+            <a href="#/supcreate" class="nav-link" ng-click="clear();" data-parent="#menu3">Supplier Creation</a>
+            <a href="#/supplist" class="nav-link" ng-click="clear();" data-parent="#menu3">Supplier List</a>
+        </li>
+
+         <li class="nav-item"><a data-target="#menu1" class="nav-link collapsed" data-toggle="collapse"><i class="fa fa-archive"></i>Product Details<span class="sub-ico"><i class="fa fa-angle-down"></i></span></a></li>
+      
+        <li class="sub collapse" id="menu1">
+            <a href="#/prodcreate" class="nav-link" ng-click="clear();" data-parent="#menu1">Add Products</a>
+            <a href="#/prodlist" class="nav-link" ng-click="clear();" data-parent="#menu1">Products List</a>
+        </li>
+
+        <li class="nav-item"><a data-target="#menu4" class="nav-link collapsed" data-toggle="collapse"><i class="fa fa-group"></i>Customer Details<span class="sub-ico"><i class="fa fa-angle-down"></i></span></a></li>
+      
+        <li class="sub collapse" id="menu4">
+            <a href="#/custcreate" class="nav-link" ng-click="clear();" data-parent="#menu4">Add Customer</a>
+            <a href="#/custlist" class="nav-link" ng-click="clear();" data-parent="#menu4">Customer List</a>
+        </li>
+
+         <li class="nav-item"><a data-target="#menu2" class="nav-link collapsed" data-toggle="collapse"><i class="fas fa-shopping-cart"></i> Purchase Details<span class="sub-ico"><i class="fa fa-angle-down"></i></span></a></li>
+      
+        <li class="sub collapse" id="menu2">
+            <a href="#/purcreate" class="nav-link" ng-click="clear();" data-parent="#menu2">Purchase Register</a>
+            <a href="#/purchlist" class="nav-link" ng-click="clear();reloadRoute();" data-parent="#menu2">Purchase List</a>
+        </li>
+
+        <li class="nav-item"><a data-target="#menu5" class="nav-link collapsed" data-toggle="collapse"><i class="fa fa-fire"></i>Sales Details<span class="sub-ico"><i class="fa fa-angle-down"></i></span></a></li>
+      
+        <li class="sub collapse" id="menu5">
+            <a href="#/salescreate" class="nav-link" ng-click="clear();" data-parent="#menu5">Sales Register</a>
+            <a href="#/saleslist" class="nav-link" ng-click="clear();reloadRoute();" data-parent="#menu5">Sales List</a>
+        </li>
+
+        <li class="nav-item"><a data-target="#menu6" class="nav-link collapsed" data-toggle="collapse"><i class="fa fa-area-chart"></i>Stock Details<span class="sub-ico"><i class="fa fa-angle-down"></i></span></a></li>
+      
+        <li class="sub collapse" id="menu6">
+            <a href="#/presentstock" class="nav-link" ng-click="clear();" data-parent="#menu6">Present Stock</a>
+            <a href="#/stockLedger" class="nav-link" ng-click="clear();" data-parent="#menu6">Stock Ledger</a>
+            <a href="#/stockEntry" class="nav-link" ng-click="clear();" data-parent="#menu6">Stock Entry</a>
+            <a href="#/updatedList" class="nav-link" ng-click="clear();reloadRoute();" data-parent="#menu6">Stock Updated List</a>
+           
+        </li>
+
+        <li class="nav-item"><a data-target="#menu7" class="nav-link collapsed" data-toggle="collapse"><i class="fa fa-calendar"></i>Monthly Report<span class="sub-ico"><i class="fa fa-angle-down"></i></span></a></li>
+      
+        <li class="sub collapse" id="menu7">
+             <a href="#/monthPurchase" class="nav-link" ng-click="clear();" data-parent="#menu7">Monthly Purchase Report</a>
+            <a href="#/monthSales" class="nav-link" ng-click="clear();" data-parent="#menu7">Monthly Sales Report</a>
+           
+        </li>
+       
+      
+      </ul>
+    </div>
+    
+  </div>
+
+  

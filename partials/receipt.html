@@ -1,0 +1,210 @@
+<link rel="stylesheet" href="receipt.css">
+
+<div class="content-wrapper" ng-controller="batchCtrl">
+	<section style="width: 97%;margin-left: 10px;">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box box-info">
+					<div class="box-header with-border non_print">
+						<h3 class="box-title"><strong>Bill Receipt</strong></h3>
+					</div>
+						
+					
+						
+						
+						<div class="box-body" id="gellop">
+							<div class="row">
+								<div class="col-md-12">
+									<table class="gridtable" class="printable"  cellspacing="0" cellpadding="0">
+										<tbody>
+											<!-- <tr>							
+												<td colspan="4" class="border_none">GST No : 29AABFN1406E1ZQ</td>
+												<td class="border_none" colspan="2" style="text-align: right;">Phone No : 26612625 </td>
+											</tr> -->
+											<tr>
+												<td colspan="4" class="border_none"></td>
+												<td class="border_none" colspan="2" style="text-align: right;">Contact No : 080- 22977740</td>
+											</tr>
+											
+											<tr>
+												<td colspan="6" align="center" class="main_heading border_none">Sri Vigneshwara Enterprises</td>
+											</tr>
+											<!-- <tr>
+												<td colspan="6"  align="center" class="sub_heading border_none">BOARDING, LODGING AND RESTAURANT</td>
+											</tr> -->
+											<tr>
+												<td colspan="6" align="center" class="sub2_heading border_none"># 49/1, 1st Floor, Opp. Good Bread, 22nd Main Maranahalli</td>
+											</tr>
+											
+											<tr>
+												<td colspan="6" align="center" class="sub2_heading border_none">J.P.Nagar 2nd Phase, Bangalore-560078</td>
+											</tr>
+											<tr>
+												<td colspan="6" align="center" class="sub2_heading border_none"><b>GSTIN : 29AAXPH9783J1ZI</b></td>
+											</tr>
+											<tr>
+												<td colspan="6" align="center" class="sub3_heading border_none">Bill Receipt</td>
+											</tr>
+											<!-- <tr>
+												<td colspan="6" align="center" class="sub2_heading border_none" style="padding: 0px 6px;">Cash/Credit</td>
+											</tr> -->
+											<tr>
+												<td colspan="4" class="border_none">Bill No : {{item123.invi=saveResults123.invoice_number}}</td>
+												<!-- <td class="border_none" colspan="2" style="text-align: right;">Date : {{date | date:'dd-MM-yyyy'}}</td> -->
+												<td class="border_none" colspan="2" style="text-align: right;">Date : {{item123.inviDate=saveResults123.date}}</td>
+											</tr>
+											<tr>
+												<td colspan="4" class="border_none capitalize">Company Name : {{item123.inviCname=saveResults123.company_name}}</td>
+												<td class="border_none" colspan="2" style="text-align: right;">Company GST : {{item123.inviCgst=saveResults123.company_gst}}</td>
+												
+											</tr>
+
+											
+											<tr>
+												<td colspan="3" style="" class="border-left-none numeric1" ></td>
+												<td colspan="" class="border-none" style="border-left: none !important;text-align: center!important;"></td>
+												<td class="numeric" style="border-left: none !important;text-align: center!important;"></td>
+												<td class="numeric" style="border-left: none !important;text-align: center!important;"></td>
+												
+												
+											</tr>
+											</tbody>
+											
+											
+          <tr>
+           
+            <td><b>Product Name</b></td>          
+            
+            <td><b>Price</b></td> 
+             <td><b>Quantity</b></td> 
+              <td><b>Basic Total</b></td>    
+            <td><b>Tax(%)</b></td>
+            
+              
+            <td class="bright"><b>Total Amount</b></td>            
+           
+          </tr>
+       
+        <tbody>
+        <!-- <tr ng-repeat="user in orders | reverse | filter:searchText" ng-hide="user.status=='Closed'"> -->
+          <tr ng-repeat="item in saleitems" >
+           
+           
+            <td >{{item.p_name}}</td>
+           
+            <td>{{item.sale_price}}</td>
+            <td>{{item.sale_quantity}}</td>
+            <td>{{item.basic_total}}</td>
+            <td>{{item.tax}}%</td>
+           
+            
+            <td class="bright">{{item.totalPrice}}</td>
+           
+        </tr>
+      
+         
+        
+        </tbody>
+         
+        <tr><td class="numeric authorized border_none" colspan="6" >
+        	<b> Grand Total : </b>{{item123.grandtotal= (saleitems | sumByColumn: 'totalPrice') | number:2 }}
+        </td></tr>
+        <tr>
+												<td colspan="3" style="" class="border-left-none numeric1" ></td>
+												<td colspan="" class="border-none" style="border-left: none !important;text-align: center!important;"></td>
+												<td class="numeric" style="border-left: none !important;text-align: center!important;"></td>
+												<td class="numeric" style="border-left: none !important;text-align: center!important;"></td>
+												
+												
+											</tr>
+     
+												
+											
+											<tbody> 
+                    <tr>
+                      <td rowspan="2" class="heading"><b>GST Tax(%)</b></td>
+                      <td rowspan="2" class="heading"><b>GST Taxable value</b></td>
+                     
+                      <td colspan="2" class="heading"><b>Central Tax (CGST)</b></td>
+                      
+                        <td colspan="2" class="heading bright"><b>State Tax (SGST)</b></td>
+                                            
+                    </tr>
+                    <tr>
+                      <td class="heading">Tax(%)</td>
+                      <td class="heading">Amount</td>
+                      
+                        <td class="heading">Tax(%)</td>
+                        <td class="heading bright">Amount</td>    
+                    </tr>
+                   
+                       <tr ng-hide="sumTaxes[0].total1==null">
+                          <td>5</td>
+                          <td>{{sumTaxTotal=sumTaxes[0].total1+sumTaxes[0].total1}}</td>
+                          <td  style="display: none;">{{item123.sumBasicTotal=sumTaxes[0].basic1}}</td>
+                          <td>2.5</td>
+                          <td>{{item123.ab=sumTaxes[0].total1}}</td>
+                          <td>2.5</td>
+                          <td class="bright">{{item123.ac=sumTaxes[0].total1}}</td>         
+                      </tr>
+                      <tr ng-hide="sumTaxes1[0].total2==null">            
+                        <td>12</td>
+                        <td>{{sumTaxTotal1=sumTaxes1[0].total2+sumTaxes1[0].total2}}</td>
+                         <td style="display: none;">{{item123.sumBasicTotal1=sumTaxes1[0].basic2}}</td>
+                        <td>6</td>
+                        <td>{{item123.ba=sumTaxes1[0].total2}}</td>
+                        <td>6</td>
+                        <td class="bright">{{item123.bc=sumTaxes1[0].total2}}</td>         
+                    </tr>
+                    <tr ng-hide="sumTaxes2[0].total3==null">            
+                        <td>18</td>
+                        <td>{{sumTaxTotal2=sumTaxes2[0].total3+sumTaxes2[0].total3}}</td>
+                        <td style="display: none;">{{item123.sumBasicTotal2=sumTaxes2[0].basic3}}</td>
+                        <td>9</td>
+                        <td>{{item123.ca=sumTaxes2[0].total3}}</td>
+                        <td>9</td>
+                        <td class="bright">{{item123.cb=sumTaxes2[0].total3}}</td>         
+                    </tr>
+                     <tr ng-hide="sumTaxes3[0].total4==null">            
+                        <td>28</td>
+                        <td>{{sumTaxTotal3=sumTaxes3[0].total4+sumTaxes3[0].total4}}</td>
+                        <td style="display: none;">{{item123.sumBasicTotal3=sumTaxes3[0].basic4}}</td>
+                        <td style="display: none;">{{item123.sumGrandBasicTotal=sumTaxes3[0].basic4 + sumTaxes2[0].basic3 + sumTaxes1[0].basic2 + sumTaxes[0].basic1}}</td>
+                        <td>14</td>
+                        <td>{{item123.da=sumTaxes3[0].total4}}</td>
+                        <td>14</td>
+                        <td class="bright">{{item123.db=sumTaxes3[0].total4}}</td>         
+                    </tr>                       
+                  </tbody>
+                  <tr>
+													<td class="numeric authorized border_none" colspan="6" rowspan="3"><strong>Authorized Signatory</strong></td>	
+												</tr>
+										</table>
+
+									</div>
+								</div>
+
+							</div>	
+							
+							<div class="box-footer non_print">
+								<button class="demo" id="invoice_print" ng-click="updateStatus(item123);" style="float: right;">Print</button>
+								
+								<!-- <button class="demo" id="invoice_print" name='myName' ng-click="updateStatus(pageData);clear()" style="float: right;">Print Bill</button> -->
+							</div>
+						
+					</div>
+				</section>
+			</div>
+			<div class="non_print">
+			
+			</div>														
+<!-- <script>
+  $("#invoice_print").click(function() {
+      window.print();
+     
+      //setTimeout("closePrintView()", 100);
+    });
+    function closePrintView() {
+      window.location = '#/';
+    } 
+</script>	 -->

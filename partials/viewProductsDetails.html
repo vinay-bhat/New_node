@@ -1,0 +1,62 @@
+ <div class="bottom">
+       <!--  <div class="left">
+          <h1>dashboard</h1>
+        </div> -->
+        <div class="right">
+          <h1>dashboard /</h1>
+          <a href="#">Purchased Product List</a>
+        </div>
+      </div>
+
+ <div id="real" ng-controller="batchCtrl">
+ 	 
+<div class="container">
+  <div class="row articles" style="margin-top: 10px;">
+    <div class="col-md-12 breadcrumbe " ng-show="proditems.length==0">
+      <p class="text-center">Sorry! No Details</p>
+    </div>
+
+    <div class="conatiner">
+      <div class="row">
+        <h5>Inward Number : </h5>
+        <h5>{{proditems[0].inward_number}}</h5>
+      </div>
+    </div>
+   
+   <table class="table list" ng-show="proditems.length>0">
+
+        <thead>
+          <tr>
+           
+            <th>Product Name</th>          
+            <th>Product UOM</th>         
+            <th>Quantity</th>
+            <th>Basic Price</th>
+            <th>Tax</th>
+            <th>Tax Amount</th>  
+            <th>Basic Total</th>       
+            <th>Total Amount</th>            
+           
+          </tr>
+        </thead>
+        <tbody>
+        <!-- <tr ng-repeat="user in orders | reverse | filter:searchText" ng-hide="user.status=='Closed'"> -->
+          <tr ng-repeat="item in proditems">
+           
+           
+            <td>{{item.p_name}}</td>
+            <td>{{item.p_uom}}</td>
+            <td>{{item.full_qty}}</td>
+            <td>{{item.basic_price}}</td>
+            <td>{{item.selectedTax}}</td>
+            <td>{{item.taxTotal}}</td>
+            <td>{{item.total}}</td>
+            <td>{{item.totalPrice}}</td>
+           
+        </tr>
+        </tbody>
+      </table>
+  </div>
+</div>
+
+</div>

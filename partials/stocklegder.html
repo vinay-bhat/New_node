@@ -1,0 +1,68 @@
+ <div class="bottom">
+       <!--  <div class="left">
+          <h1>dashboard</h1>
+        </div> -->
+        <div class="right">
+          <h1>dashboard /</h1>
+          <a href="#">Stock Ledger</a>
+        </div>
+      </div>
+
+ <div id="real" ng-controller="batchCtrl">
+ 	 
+<div class="container">
+  <div class="row articles" style="margin-top: 10px;">
+    <div class="col-md-12 breadcrumbe " ng-show="stockLedger.length==0">
+      <p class="text-center">Sorry! No Stocks</p>
+    </div>
+    <div class="form-group has-feedback col-md-4 col-sm-6 col-xs-6">
+        <label for="invoicedate">From Date </label>
+        <datepicker date-format="dd-MM-yyyy"">
+                  <input ng-model="pageData.from_date" id="invoicedate" type="text" class="form-control" placeholder="From Date" required autocomplete="off" />
+                </datepicker>
+      </div>
+      <div class="form-group has-feedback col-md-4 col-sm-6 col-xs-6">
+        <label for="invoicedate">To Date </label>
+        <datepicker date-format="dd-MM-yyyy">
+                  <input ng-model="pageData.to_date" id="invoicedate1" type="text" class="form-control" placeholder="To Date" autocomplete="off" required />
+                </datepicker>
+      </div>
+      <div class="form-group has-feedback col-md-4 col-sm-6 col-xs-6">
+        <label for="invoicedate">Product Name </label>
+        <select class="form-control" ng-model="pageData.selectedName" data-ng-options="x.product_name as x.product_name for x in products">
+          <option value="">Select Product</option>
+        </select>
+        
+      </div>
+   
+   <table class="table list" ng-show="stockLedger.length>0">
+
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Product Name</th>
+            <th>Opening Stock</th>          
+            <th>Inward</th>         
+            <th>Outward</th>
+            <th>Closing Stock</th>
+          </tr>
+        </thead>
+        <tbody>
+        <!-- <tr ng-repeat="user in orders | reverse | filter:searchText" ng-hide="user.status=='Closed'"> -->
+          <tr ng-repeat="purchase in stockLedger | dateRange : pageData.from_date : pageData.to_date : pageData.selectedName">
+           
+            <td>{{purchase.inward_date}}</td>
+            <td>{{purchase.product_name}}</td>
+            <td>{{purchase.opening_stock}}</td>
+            <td>{{purchase.in_qty}}</td>
+            <td>{{purchase.out_qty}}</td>
+            <td>{{purchase.closing_stock}}</td>
+           
+        </tr>
+        </tbody>
+      </table>
+      <br><br><br><br><br><br><br><br><br><br><br>
+  </div>
+</div>
+
+</div>

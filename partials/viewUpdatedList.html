@@ -1,0 +1,62 @@
+ <div class="bottom">
+       <!--  <div class="left">
+          <h1>dashboard</h1>
+        </div> -->
+        <div class="right">
+          <h1>dashboard /</h1>
+          <a href="#">Stock Updated List</a>
+        </div>
+      </div>
+
+ <div id="real" ng-controller="batchCtrl">
+   
+<div class="container">
+  <div class="row articles" style="margin-top: 10px;">
+    <div class="col-md-12 breadcrumbe " ng-show="updatedListDetails.length==0">
+      <p class="text-center">Sorry! No Details</p>
+    </div>
+
+    <div class="conatiner">
+      <div class="row">
+        <h5>Inward Number : </h5>
+        <h5>{{updatedListDetails[0].phy_id}}</h5>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+       <button ng-click="printDiv('bellop');" style="float: right;" class="demo"><i class="fa fa-print"></i> Print</button> 
+    </div>
+   <div id="bellop" style="width: 100%">
+
+   <table class="table list" ng-show="updatedListDetails.length>0">
+
+        <thead>
+          <tr>
+           
+            <th>Product Name</th>          
+            <th>Product UOM</th>         
+            <th>System Stock</th>
+            <th>Physical Stock</th>
+            <th>Difference</th>
+           
+          </tr>
+        </thead>
+        <tbody>
+        <!-- <tr ng-repeat="user in orders | reverse | filter:searchText" ng-hide="user.status=='Closed'"> -->
+          <tr ng-repeat="item in updatedListDetails">
+           
+           
+            <td style="text-transform: capitalize;">{{item.product_name}}</td>
+            <td>{{item.uom}}</td>
+            <td>{{item.old_quantity}}</td>
+            <td>{{item.new_quantity}}</td>
+            <td>{{item.difference = item.old_quantity - item.new_quantity}}</td>
+           
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>

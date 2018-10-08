@@ -1,0 +1,71 @@
+ <div class="head non_print" ng-controller="batchCtrl">
+      <!-- head top -->
+      <div class="top">
+        <div class="left">
+          <button id="on" class="btn btn-info"><i class="fa fa-bars"></i></button>
+          <button id="off" class="btn btn-info hide"><i class="fa fa-align-left"></i></button>
+          <!-- <button class="btn btn-info hidden-xs-down"  onclick="history.back()"><i class="fa fa-arrow-left"></i></button> -->
+          <a href="#/"><button class="btn btn-info hidden-xs-down"><i class="fa fa-home"></i>Back Home</button></a>
+        </div>
+        <div class="right">
+          <!-- <button class="btn btn-info hidden-xs-down"><i class="fa fa-bell"></i></button>
+          <button class="btn btn-info hidden-xs-down"><i class="fa fa-envelope"></i></button> -->
+          <!-- <div class="dropdown">
+            <button class="btn btn-info dropdown-toggle" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</button>
+            <div class="dropdown-menu" aria-labelledby="userDropdown">
+             <a class="dropdown-item" href="#">Profile</a>
+             <a class="dropdown-item" href="#">Settings</a>
+             <a class="dropdown-item" href="#">Log Out</a>
+           </div>
+          </div> -->
+        </div>
+      </div>
+      <!-- end head top -->
+      <!-- start head bottom -->
+      
+      <!-- end head bottom -->
+    </div>
+
+
+    
+    <script>
+        var sidebar = $('.sidebar'),
+        content = $('.content'),
+        on = $('#on'),
+        off = $('#off');
+
+    var hideSidebar = function (){
+      sidebar.addClass('sidebarOff');
+      content.addClass('contentOn');
+      on.addClass('hide');
+      off.removeClass('hide');
+    };
+
+    var showSidebar = function(){
+      sidebar.removeClass('sidebarOff');
+      content.removeClass('contentOn');
+      off.addClass('hide');
+      on.removeClass('hide');
+    }
+
+    on.on('click',function(){
+      hideSidebar();
+    })
+
+    off.on('click',function(){
+      showSidebar();
+    })
+
+    var autoResize = function () {
+      if ($(window).width() <= 990) {
+        hideSidebar();
+      } else {
+        showSidebar();
+      }
+    };
+
+    $(window).bind('resize' , function(){
+      autoResize();
+    })
+    autoResize();
+    </script>

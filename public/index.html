@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- start linking  -->
+  <link href="font-family.css" rel="stylesheet">
+  
+  <link href="all.css" rel="stylesheet">
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <link rel="stylesheet" href="fontawesome.css">
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="angular-datepicker.css">
+   <link rel="stylesheet" href="ngDialog.css">
+  <link rel="stylesheet" href="ngDialog-theme-plain.css">
+  <link rel="stylesheet" href="ngDialog-theme-default.css">
+  <!-- icon -->
+  <link rel="icon" href="img/log.png">
+  <!-- end linking -->
+  <title>Admin</title>
+</head>
+<body ng-app = "userApp">
+<!-- start admin -->
+<section id="admin">
+  <div ng-include='"sidebar.html"'></div>
+  
+  <div class="content">
+    
+    <div ng-include='"header.html"'></div>
+    
+    <div ng-view></div>
+    <div ng-include='"footer.html"'></div>
+    <!-- angular content -->
+
+
+   
+  </div>
+</section>
+<!-- end admin -->
+<!-- start screpting -->
+<script src="jquery.min.js"></script>
+<script src = "angular.min.js"></script>
+<script src="angular-route.min.js"></script>
+<script src="ngDialog.min.js"></script>
+<script src="ngStorage.min.js"></script>
+<script src="tether.min.js"></script>
+<script src="angular-datepicker.js"></script>
+<script src="ui-bootstrap-tpls-2.5.0.min.js"></script>
+<script src="bootstrap.min.js"></script>
+<script src="highcharts.js"></script>
+<script src="ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
+<script src="ng-file-upload.min.js"></script>
+<script src="chart.js"></script>
+<script src="app.js"></script>
+<script src="myapp.js"></script>
+<script>
+  window.onpopstate = function (e) { window.history.forward(1); }
+</script>
+<!-- end screpting -->
+</body>
+
+</html>

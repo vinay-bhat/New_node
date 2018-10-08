@@ -1,0 +1,48 @@
+  <div class="bottom">
+       <!--  <div class="left">
+          <h1>dashboard</h1>
+        </div> -->
+        <div class="right">
+          <h1>dashboard /</h1>
+          <a href="#">Customer Creation</a>
+        </div>
+      </div>
+ <div id="real" ng-controller="batchCtrl">
+ 	<form name="thisForm">
+ 	<div class="row">
+ 		
+ 			<div class="form-group has-feedback col-md-4 col-sm-6 col-xs-6">
+				<label for="cname">Company Name * </label>
+				<input type="text" name="cname" id="cname" class="form-control" ng-model="pageData.	company_name" autocomplete="off" required>
+			</div>
+			<div class="form-group has-feedback col-md-4 col-sm-6 col-xs-6">
+				<label for="cusname">Customer Name * </label>
+				<input type="text" name="cusname" id="cusname" class="form-control" ng-model="pageData.customer_name" autocomplete="off" required>
+			</div>
+			<div class="form-group has-feedback col-md-4 col-sm-6 col-xs-6">
+				<label for="phone">Mobile Number * </label>
+				<input type="text" name="phone" id="phone" class="form-control" ng-model="pageData.mobile" autocomplete="off" required>
+			</div>
+			<div class="form-group has-feedback col-md-4 col-sm-6 col-xs-6">
+				<label for="landline">Landline Number </label>
+				<input type="text" name="landline" id="landline" class="form-control" ng-model="pageData.landline" autocomplete="off">
+			</div>
+			<div class="form-group has-feedback col-md-4 col-sm-6 col-xs-6">
+				<label for="mail">Mail Id * </label>
+				<input type="email" name="mail" id="mail" class="form-control" ng-model="pageData.mail" autocomplete="off" required>
+			</div>
+			<div class="form-group has-feedback col-md-4 col-sm-6 col-xs-6">
+				<label for="gst">GST Number * </label>
+				<input type="text" name="gst" id="gst" class="form-control" ng-model="pageData.gst_no" autocomplete="off" required>
+			</div>
+ 
+		</div>
+		<div class="row">
+			<a href=""><button class="demo" name='myName'  ng-disabled="thisForm.$invalid" ng-click="insertCustomer(pageData)" style="float: right;">Submit</button></a>
+       <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-success" ng-show="successMessagebool ">
+        <strong>{{successMessage }}</strong>
+		</div>
+
+ 	</div>
+ </form>
+ </div>

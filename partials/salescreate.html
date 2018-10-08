@@ -1,0 +1,301 @@
+<style>
+  td, th {
+   
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #eee;
+    color: #000;
+}
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+    background: #009688 !important;
+    color: #fff !important;
+    border-radius: 3px !important;
+}
+.ngdialog-content {
+    width: 900px !important;
+    height: 590px;
+    margin-top: -150px !important;
+}
+.ngdialog.ngdialog-theme-default .ngdialog-close:before {
+    background: transparent;
+    border-radius: 3px;
+    color: #000;
+    content: '\00D7';
+    font-size: 46px;
+    font-weight: 400;
+    height: 30px;
+    line-height: 26px;
+    position: absolute;
+    right: 3px;
+    text-align: center;
+    top: 3px;
+    width: 30px;
+}
+</style>
+
+ <div id="real" ng-controller="batchCtrl">
+ 	<form name="thisForm">
+ 	<div class="row">
+    <div class="col-md-3" style="background: #eee;padding: 8px;">
+      <div class="form-group has-feedback initWidth col-md-6 col-sm-6 col-xs-6">
+        
+          <div ng-repeat="x in sales" ng-if="$last" style="display: none;">
+          
+            {{pageData.invoice_number=x.invoice_number*1 + 1*1}}
+          </div>
+        <div ng-if="!sales.length" style="display: none;">{{pageData.invoice_number=1}}</div>
+        <p>Invoice Number : {{invoice=pageData.invoice_number}}</p>
+        <input type="hidden" name="invoiceno" id="invoiceno" class="form-control" ng-model="pageData.invoice_number" autocomplete="off" required readonly>
+      </div>
+      
+      <div class="form-group has-feedback initWidth col-md-6 col-sm-6 col-xs-6">
+      <datepicker date-format="dd-MM-yyyy" >
+               <input type="text" name="idate" id="idate" class="form-control"  ng-model="pageData.date" autocomplete="off" placeholder="Date" required>
+                </datepicker>
+        
+         <p style="display: none;">Date : {{tdate=pageData.date}}</p>
+      </div><br>
+       <input type="hidden" name="idate" id="idate" class="form-control" ng-value="pageData.date1 = (date | date : 'dd-MM-y')" ng-model="pageData.date1" autocomplete="off" readonly>
+        <div class="form-group has-feedback initWidth col-md-6 col-sm-6 col-xs-6">
+       
+        <select class="form-control" ng-model="selectedName" ng-change="add_sale(selectedName)"  data-ng-options="x as x.product_name for x in purchasedproducts | orderBy:'product_name'" style="text-transform: capitalize;">
+          <option value="">Select Product</option>
+        </select>
+        
+      </div>
+      <div class="form-group has-feedback initWidth col-md-6 col-sm-6 col-xs-6">
+        
+        <input type="text" name="dcno" id="dcno" class="form-control" ng-model="pageData.dc_number" autocomplete="off" placeholder="DC Number">
+      </div>
+      <div class="form-group has-feedback initWidth col-md-6 col-sm-6 col-xs-6">
+        
+        <!-- <input type="text" name="cname" id="cname" class="form-control" ng-model="pageData.customer_name" autocomplete="off" required> -->
+        <input type="text" ng-model="pageData.company_name" uib-typeahead="state.company_name for state in customers | filter:$viewValue | limitTo:8" class="form-control" placeholder="Company Name">
+      </div>
+      <div class="form-group has-feedback initWidth col-md-6 col-sm-6 col-xs-6">
+        
+        <!-- <input type="text" name="gst" id="gst" class="form-control" ng-model="pageData.customer_gst" autocomplete="off" required> -->
+        <input type="text" list="testList" name="gst" id="gst" class="form-control" ng-model="pageData.company_gst" required autocomplete="off" placeholder="Company GST">
+                <!-- <div ng-repeat="todo in orders | filter:pageData.mobile">  -->
+                <datalist id="testList">
+                        <option ng-repeat="todo in customers | filter: pageData.company_name | limitTo : 1" value="{{todo.gst_no}}"></option>
+                   </datalist>
+       </div>
+    
+
+      </div>
+	
+			<div class="col-md-9  col-sm-6 col-xs-6 second">
+   				
+   				<table class="table cart-table responsive-table">
+            <tr ng-show="salescart.length>0">
+              <th></th>
+              <th>
+                Product
+              </th>
+            	<th>
+            		Basic Price
+            	</th>
+              <th>
+              Available Stock
+              </th>
+              
+              <th>
+                Quantity
+              </th>
+             <th>Price</th>
+              <th>
+               Basic Total
+              </th>
+              <th>
+              	Tax
+              </th>
+              <th>
+              	Tax Amount
+              </th>
+              <th>Total Price</th>
+              <th></th>
+              
+            </tr>
+          
+
+
+            <tbody>
+              <tr ng-repeat="item in salescart | reverse">
+                <td><p style="display: none;">{{item.invoice=invoice}}</p><input type="hidden" ng-model="item.invoice" class="form-control"></td>
+                <td style="text-transform: capitalize;">{{item.p_name}}
+                  </td>
+                  <td>{{item.basic_price | currency:'&#x20b9;'}}</td>
+                  <td>{{item.quantity}}</td>
+                
+                <td> 
+                <input type="text" ng-model="item.sale_quantity" class="form-control">
+                <p ng-show="item.sale_quantity>item.quantity" class="alert alert-danger">Can't enter more than available stock quantity</p>
+                 </td>
+                 <td><input type="text" ng-disabled="item.sale_quantity>item.quantity" ng-model="item.sale_price" class="form-control">
+                </td>
+
+               
+                <td>
+                	<input type="hidden" ng-model="item.basic_total">
+                	{{item.basic_total=item.sale_price * item.sale_quantity | currency:'&#x20b9;'}}
+                 </td>
+                 <td>
+                 	{{item.tax}}%
+                 </td>
+                 <td>
+                 	<input type="hidden" ng-model="item.taxTotal">
+                	{{item.taxTotal=(item.basic_total * item.tax)/100 | currency:'&#x20b9;'}}
+                 </td>
+                 <td>
+                 	<input type="hidden" ng-model="item.totalPrice">
+                	{{item.totalPrice=item.basic_total + item.taxTotal | currency:'&#x20b9;'}}
+                 </td>
+                <td><button type="button" ng-click="remove_sale(item)" class="fa fa-close" style="padding: 5px;background: #F44336;border: 1px solid #F44336;color: white;"></button></td>
+                <td>
+                 <p style="display: none;">{{item.full_quantity=item.quantity - item.sale_quantity}}</p>
+                 <input type="hidden" ng-model="item.full_quantity">
+               </td>
+                <td style="display: none;"><p>{{item.tdate=tdate}}</p></td>
+                <td  style="display: none;"><p>{{item.cgst=item.tax /2}}</p>
+                <input type="hidden" ng-model="item.cgst"></td>
+                <td style="display: none;"><p>{{item.taxTotalDivide=item.taxTotal /2}}</p>
+                  <input type="hidden" ng-model="item.taxTotalDivide"></td>
+
+              </tr>
+
+        
+
+            </tbody>
+
+
+          </table>
+           </div>
+   			
+   			</div>
+		
+		
+       <div class="row foot">
+       
+  <div class="col-md-4">
+    <!--  <a href=""><button class="demo" name='myName' ng-disabled="thisForm.$invalid || isDisabled" ng-click="insertSalesDetails(pageData);insertSalesProductDetails();this.disabled=true;" style="float: left;">Submit</button></a> -->
+     <button  class="demo"  ng-click="clickToOpen()">Preview</button>
+
+     
+  </div>
+  
+  <div class="col-md-4">
+     <strong ng-hide="salesSum()==0">Total Sum : {{salesSum() | currency:'&#x20b9;'}}</strong>
+  </div>
+</div>
+
+
+ 	
+ </form>
+ 
+       <!--   <a href=""><button class="demo" name='myName' ng-disabled="thisForm.$invalid || isDisabled" ng-click="insertSalesDetails(pageData);insertSalesProductDetails();isDisabled=true" style="float: left;">Submit</button></a> -->
+
+         </div>
+
+          <script type="text/ng-template" id="externalTemplate.html">
+  
+        <table class="table cart-table responsive-table">
+            <tr ng-show="salescart.length>0">
+              <th></th>
+              <th>
+                Product
+              </th>
+              <th>
+                Basic Price
+              </th>
+              <th>
+              Available Stock
+              </th>
+              
+              <th>
+                Quantity
+              </th>
+             <th>Price</th>
+              <th>
+               Basic Total
+              </th>
+              <th>
+                Tax
+              </th>
+              <th>
+                Tax Amount
+              </th>
+              <th>Total Price</th>
+              
+              
+            </tr>
+          
+
+
+            <tbody>
+              <tr ng-repeat="item in salescart | reverse">
+                <td><p style="display: none;">{{item.invoice=invoice}}</p><input type="hidden" ng-model="item.invoice" class="form-control"></td>
+                <td style="text-transform: capitalize;">{{item.p_name}}
+                  </td>
+                  <td>{{item.basic_price | currency:'&#x20b9;'}}</td>
+                  <td>{{item.quantity}}</td>
+                
+                <td> 
+                {{item.sale_quantity}}
+                <p ng-show="item.sale_quantity>item.quantity" class="alert alert-danger">Can't enter more than available stock quantity</p>
+                 </td>
+                 <td>{{item.sale_price}}
+                </td>
+
+               
+                <td>
+                  <input type="hidden" ng-model="item.basic_total">
+                  {{item.basic_total=item.sale_price * item.sale_quantity | currency:'&#x20b9;'}}
+                 </td>
+                 <td>
+                  {{item.tax}}%
+                 </td>
+                 <td>
+                  <input type="hidden" ng-model="item.taxTotal">
+                  {{item.taxTotal=(item.basic_total * item.tax)/100 | currency:'&#x20b9;'}}
+                 </td>
+                 <td>
+                  <input type="hidden" ng-model="item.totalPrice">
+                  {{item.totalPrice=item.basic_total + item.taxTotal | currency:'&#x20b9;'}}
+                 </td>
+                
+                <td>
+                 <p style="display: none;">{{item.full_quantity=item.quantity - item.sale_quantity}}</p>
+                 <input type="hidden" ng-model="item.full_quantity">
+               </td>
+                <td style="display: none;"><p>{{item.tdate=tdate}}</p></td>
+                <td  style="display: none;"><p>{{item.cgst=item.tax /2}}</p>
+                <input type="hidden" ng-model="item.cgst"></td>
+                <td style="display: none;"><p>{{item.taxTotalDivide=item.taxTotal /2}}</p>
+                  <input type="hidden" ng-model="item.taxTotalDivide"></td>
+
+              </tr>
+
+        
+
+            </tbody>
+
+
+          </table>
+
+
+
+          <a href="#/directReceipt"><button class="demo" name='myName' ng-disabled="thisForm.$invalid || isDisabled" ng-click="insertSalesDetails(pageData);insertSalesProductDetails();isDisabled=true;saveForReceipt(salescart);save(pageData);ngDialog.close();getResultTax(pageData)" style="float: left;">Submit</button></a>
+        
+    <div class="col-md-4 col-sm-12 col-xs-12 alert alert-success" ng-show="successMessagebool ">
+        <strong>{{successMessage }}</strong>
+    </div>
+</script> 
+ <script>
+            $('select').change(function() {
+              $(this).blur();
+            })
+          </script>

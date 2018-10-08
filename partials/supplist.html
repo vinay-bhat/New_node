@@ -1,0 +1,53 @@
+ <div class="bottom">
+       <!--  <div class="left">
+          <h1>dashboard</h1>
+        </div> -->
+        <div class="right">
+          <h1>dashboard /</h1>
+          <a href="#">Supplier List</a>
+        </div>
+      </div>
+
+ <div id="real" ng-controller="batchCtrl">
+ 	 
+<div class="container">
+  <div class="row articles" style="margin-top: 10px;">
+    <div class="col-md-12 breadcrumbe " ng-show="suppliers.length==0">
+      <p class="text-center">Sorry! No Suppliers</p>
+    </div>
+    <input type="text" class="form-control" ng-model="searchText" placeholder="Search.." style="width: 70%;" /><br>
+   <table class="table list" ng-show="suppliers.length>0">
+
+        <thead>
+          <tr>
+            <th>Sl No.</th>
+            <th>Company Name</th>          
+            <th>Company Address</th>         
+            <th>Phone #1</th>
+            <th>Phone #2</th>
+            <th>Email</th>         
+            <th>GST No.</th>                       
+            <th >Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+        <!-- <tr ng-repeat="user in orders | reverse | filter:searchText" ng-hide="user.status=='Closed'"> -->
+          <tr ng-repeat="supplier in suppliers | filter:searchText">
+           
+            <td>{{$index+1}}</td>
+            <td>{{supplier.company_name}}</td>
+            <td>{{supplier.company_address}}</td>
+            <td>{{supplier.contact1}}</td>
+            <td>{{supplier.contact2}}</td>
+            <td>{{supplier.mail}}</td>
+            <td>{{supplier.gst_no}}</td>
+           
+            <td><a href="#/editsupp"><i class="fa fa-edit" ng-click="save(supplier)" style="font-size: 22px;color: #646cc7"></i></a></td>
+           
+        </tr>
+        </tbody>
+      </table>
+  </div>
+</div>
+
+</div>

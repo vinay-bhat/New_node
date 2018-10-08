@@ -1,0 +1,51 @@
+ <div class="bottom">
+       <!--  <div class="left">
+          <h1>dashboard</h1>
+        </div> -->
+        <div class="right">
+          <h1>dashboard /</h1>
+          <a href="#">Sales List</a>
+        </div>
+      </div>
+
+ <div id="real" ng-controller="batchCtrl">
+ 	 
+<div class="container">
+  <div class="row articles" style="margin-top: 10px;">
+    <div class="col-md-12 breadcrumbe " ng-show="phyUpdates.length==0">
+      <p class="text-center">Sorry! No Sales</p>
+    </div>
+    <input type="text" class="form-control" ng-model="searchText" placeholder="Search.." style="width: 70%;" /><br>
+   <table class="table list" ng-show="phyUpdates.length>0">
+
+        <thead>
+          <tr>
+            <th>Invoice Number</th>
+            <th>Invoice Date</th>          
+            
+            
+            <th>View</th>         
+                           
+            <!-- <th>Edit</th> -->
+          </tr>
+        </thead>
+        <tbody>
+        <!-- <tr ng-repeat="user in orders | reverse | filter:searchText" ng-hide="user.status=='Closed'"> -->
+          <tr ng-repeat="purchase in phyUpdates | filter:searchText">
+           <td>{{purchase.phy_id}}</td>
+           
+            <td>{{purchase.date}}</td>
+           
+           
+            
+            <td><a href="#/viewUpdatedList"><i class="fa fa-eye" ng-click="getUpdatedList(purchase)" style="font-size: 18px;color: #646cc7"></i></a></td>
+           
+           <!--  <td><a href="#/editpurc"><i class="fa fa-edit" ng-click="save(purchase)" style="font-size: 22px;color: #646cc7"></i></a></td> -->
+           
+        </tr>
+        </tbody>
+      </table>
+  </div>
+</div>
+
+</div>

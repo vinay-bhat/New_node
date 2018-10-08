@@ -1,0 +1,84 @@
+ <div class="bottom">
+       <!--  <div class="left">
+          <h1>dashboard</h1>
+        </div> -->
+        <div class="right">
+          <h1>dashboard /</h1>
+          <a href="#">Monthly Purchase List</a>
+        </div>
+      </div>
+
+ <div id="real" ng-controller="batchCtrl">
+ 	 
+<div class="container">
+  <div class="row articles" style="margin-top: 10px;">
+    <div class="col-md-12 breadcrumbe " ng-show="monthPurchase.length==0">
+      <p class="text-center">Sorry! No Month Sales</p>
+    </div>
+
+    <div class="form-group has-feedback col-md-4 col-sm-6 col-xs-6">
+        <label for="invoicedate">From Date </label>
+        <datepicker date-format="dd-MM-yyyy"">
+                  <input ng-model="pageData.from_date" id="invoicedate" type="text" class="form-control" placeholder="From Date" required autocomplete="off" />
+                </datepicker>
+      </div>
+      <div class="form-group has-feedback col-md-4 col-sm-6 col-xs-6">
+        <label for="invoicedate">To Date </label>
+        <datepicker date-format="dd-MM-yyyy">
+                  <input ng-model="pageData.to_date" id="invoicedate1" type="text" class="form-control" placeholder="To Date" autocomplete="off" required />
+                </datepicker>
+      </div>
+
+       <div class="form-group has-feedback col-md-4 col-sm-6 col-xs-6">
+        <br>
+      <button class="btn btn-primary" ng-click="exportToExcelPurchase('#bellop')" style="margin-top: 8px;">
+   Export to Excel
+  </button>
+      </div>
+    <div id="bellop" style="width: 100%;">
+      
+    
+   <table class="table list" ng-show="monthPurchase.length>0">
+
+        <thead>
+         
+          <tr>
+            <th>Sl No.</th>
+            <th>Date</th>          
+            <th>Invoice Number</th>         
+            <th>Company Name</th>
+            <th>Company GST</th>
+            <th>Gross Amount</th> 
+              
+              <th>SGST</th>                    
+            <th>CGST</th>
+            <th>Total Amount</th>
+               
+           
+            
+          </tr>
+        </thead>
+        <tbody>
+        <!-- <tr ng-repeat="user in orders | reverse | filter:searchText" ng-hide="user.status=='Closed'"> -->
+          <tr ng-repeat="supplier in monthPurchase | dateRange2 : pageData.from_date : pageData.to_date">
+           
+            <td>{{$index+1}}</td>
+            <td>{{supplier.date}}</td>
+            <td>{{supplier.invoice_number}}</td>
+            <td>{{supplier.company_name}}</td>
+            <td>{{supplier.company_gst}}</td>
+            <td>{{supplier.gross_amt}}</td>
+            <td>{{supplier.sgst}}</td>
+            <td>{{supplier.cgst}}</td>
+            <td>{{supplier.totalPrice}}</td>
+
+        </tr>
+        </tbody>
+      </table>
+      <br><br><br><br><br><br><br><br><br><br><br>
+      </div>
+  </div>
+</div>
+
+
+</div>

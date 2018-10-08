@@ -1,0 +1,74 @@
+ <div class="bottom">
+       <!--  <div class="left">
+          <h1>dashboard</h1>
+        </div> -->
+        <div class="right">
+          <h1>dashboard /</h1>
+          <a href="#">Stock Entry</a>
+        </div>
+      </div>
+
+ <div id="real" ng-controller="batchCtrl">
+  <div class="form-group has-feedback initWidth col-md-6 col-sm-6 col-xs-6">
+        
+          <div ng-repeat="x in phyUpdates" ng-if="$last" style="display: none;">
+          
+            {{pageData.phy_id=x.id*1 + 1*1}}
+          </div>
+        <div ng-if="!phyUpdates.length" style="display: none;">{{pageData.phy_id=1}}</div>
+        <span><b>Update Number : {{inward=pageData.phy_id}}</b></span>
+        <input type="hidden" name="inwardno" id="inwardno" class="form-control" ng-model="pageData.phy_id" autocomplete="off" required readonly>
+      </div>
+      <div class="form-group has-feedback initWidth col-md-6 col-sm-6 col-xs-6">
+ 	 <p><b>Date : {{pageData.indate = (date | date : 'dd-MM-y')}}</b></p>
+  </div>
+<div class="container">
+  <div class="row articles" style="margin-top: 10px;">
+    <div class="col-md-12 breadcrumbe " ng-show="tempProds.length==0">
+      <p class="text-center">Sorry! No Products</p>
+    </div>
+    <input type="text" class="form-control" ng-model="searchText" placeholder="Search.." style="width: 70%;" /><br>
+   <table class="table list" ng-show="tempProds.length>0">
+
+        <thead>
+          <tr>
+            <th>Sl No.</th>
+            <th>Product Name</th>          
+            <th>UOM</th>    
+            <th>Quantity</th>  
+            <th></th>   
+          </tr>
+        </thead>
+        <tbody>
+        <!-- <tr ng-repeat="user in orders | reverse | filter:searchText" ng-hide="user.status=='Closed'"> -->
+         
+          <tr ng-repeat="prod in tempProds | filter:searchText">
+           
+            <td>{{$index+1}}</td>
+
+            <td>{{prod.product_name}}</td>
+            <td>{{prod.uom}}</td>
+            <td><input type="text" class="form-control" ng-model="prod.quantity" ng-change="increase(prod);lasttry(prod)"></td>
+           <td><p style="display: none;">{{prod.inward=inward}}</p><input type="hidden" ng-model="prod.inward" class="form-control"></td>
+        </tr>
+       
+        </tbody>
+      </table>
+      <div class="row">
+        <div class="col-md-6">
+           <button class="btn btn-primary text-left" ng-click="">
+    <span class="glyphicon glyphicon-share"></span> Save
+  </button>
+        </div>
+        <div class="col-md-6">
+           <button class="btn btn-primary" ng-click="updatePhy(tempProds);insertPhy(pageData);updateOldPhy();oldToNew()">
+    <span class="glyphicon glyphicon-share"></span> Submit
+  </button>
+        </div>
+      </div>
+     
+     
+  </div>
+</div>
+
+</div>

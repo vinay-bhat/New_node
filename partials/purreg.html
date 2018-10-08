@@ -1,0 +1,334 @@
+ <style>
+  .typeahead-demo .custom-popup-wrapper {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    background-color: #f9f9f9;
+  }
+
+  .typeahead-demo .custom-popup-wrapper .message {
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    color: #868686;
+  }
+
+  .typeahead-demo .custom-popup-wrapper .dropdown-menu {
+    position: static;
+    float: none;
+    display: block;
+    min-width: 160px;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .ngdialog.ngdialog-theme-default .ngdialog-content {
+    background: #009688 !important;
+    color: #fff !important;
+    border-radius: 3px !important;
+}
+.ngdialog-content {
+    width: 900px !important;
+    height: 590px;
+    margin-top: -150px !important;
+}
+
+  td, th {
+   
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #eee;
+    color: #000;
+}
+.ngdialog.ngdialog-theme-default .ngdialog-close:before {
+    background: transparent;
+    border-radius: 3px;
+    color: #000;
+    content: '\00D7';
+    font-size: 46px;
+    font-weight: 400;
+    height: 30px;
+    line-height: 26px;
+    position: absolute;
+    right: 3px;
+    text-align: center;
+    top: 3px;
+    width: 30px;
+}
+</style>
+
+
+ <div id="real" ng-controller="batchCtrl">
+ 	<form name="thisForm">
+ 	<div class="row">
+    <div class="col-md-3" style="background: #eee;padding: 8px;">
+    
+      <div class="form-group has-feedback initWidth col-md-6 col-sm-6 col-xs-6">
+        
+          <div ng-repeat="x in purchases" ng-if="$last" style="display: none;">
+          
+            {{pageData.inward_number=x.inward_number*1 + 1*1}}
+          </div>
+        <div ng-if="!purchases.length" style="display: none;">{{pageData.inward_number=1}}</div>
+        <span>Inward Number : {{inward=pageData.inward_number}}</span>
+        <input type="hidden" name="inwardno" id="inwardno" class="form-control" ng-model="pageData.inward_number" autocomplete="off" required readonly>
+      </div>
+      
+      <div class="form-group has-feedback initWidth col-md-6 col-sm-6 col-xs-6">
+      <datepicker date-format="dd-MM-yyyy" >
+                <input type="text" name="idate" id="idate" class="form-control" ng-model="pageData.inward_date" autocomplete="off" placeholder="Inward Date" required>
+                </datepicker>
+        
+        <span style="display: none;">Inward Date : {{tdate=pageData.inward_date}}</span>
+      </div><br>
+   <div class="form-group has-feedback initWidth col-md-6 col-sm-6 col-xs-6">
+        
+        <select class="form-control" ng-model="selectedName" ng-change="add_cart(selectedName)"  data-ng-options="x as x.product_name for x in products | orderBy:'product_name'" style="text-transform: capitalize;">
+          <option value="">Select Product</option>
+        </select>
+        
+      </div>
+
+      
+      <div class="form-group has-feedback initWidth col-md-6 col-sm-6 col-xs-6">
+        
+        <input type="text" name="invoiceno" id="invoiceno" class="form-control" ng-model="pageData.invoice_number" autocomplete="off" placeholder="Invoice Number ">
+      </div>
+
+      <div class="form-group has-feedback initWidth col-md-6 col-sm-6 col-xs-6">
+      
+        <datepicker date-format="dd-MM-yyyy" >
+                  <input ng-model="pageData.invoice_date" id="invoicedate" type="text" class="form-control" placeholder="Invoice Date" required autocomplete="off" placeholder="Invoice Date" />
+                </datepicker>
+      </div>
+      <br><br>
+      <div class="form-group has-feedback initWidth col-md-6 col-sm-6 col-xs-6">
+        
+        <!-- <input type="text" name="cname" id="cname" class="form-control" ng-model="pageData.company_name" autocomplete="off" required> -->
+        
+        <input type="text" ng-model="pageData.company_name" uib-typeahead="state.company_name for state in suppliers | filter:$viewValue | limitTo:8" class="form-control" placeholder="Company Name">
+        <!-- typeahead <input type="text"  ng-model="selected" typeahead="state.address for state in states | filter:$viewValue" /> -->
+      </div>
+      <div class="form-group has-feedback initWidth col-md-6 col-sm-6 col-xs-6">
+      
+        <!-- <input type="text" name="gst" id="gst" class="form-control" ng-model="pageData.gst" autocomplete="off" required> -->
+        <input type="text" list="testList" name="gst" id="gst" class="form-control" ng-model="pageData.gst" required autocomplete="off" placeholder="Company GST">
+                <!-- <div ng-repeat="todo in orders | filter:pageData.mobile">  -->
+                <datalist id="testList">
+                        <option ng-repeat="todo in suppliers | filter: pageData.company_name | limitTo : 1" value="{{todo.gst_no}}"></option>
+                   </datalist>
+      </div>
+      
+      
+      <div class="form-group has-feedback initWidth col-md-6 col-sm-6 col-xs-6">
+        <label for="upload">Invoice Upload : </label>
+        <div class="demo" ngf-select="upload($file)" ng-disabled="pageData.file_path.length>1">Click to select file</div>
+      <p>{{progress}}
+      <p style="display: none;">{{pageData.file_path=filepath[0].path}}</p>
+      <input type="hidden" ng-model="pageData.file_path">
+
+      </div>
+      
+     </div>
+
+			<div class="col-md-9 col-sm-6 col-xs-6 second">
+   				
+   				<table class="table cart-table responsive-table">
+            <tr ng-show="carts.length>0">
+              <th></th>
+              <th>
+                Product
+              </th>
+            	<th>
+            		UOM
+            	</th>
+              <th style="width: 10%;">
+               Basic Price
+              </th>
+              <th style="width: 10%;">
+                Quantity
+              </th>
+             
+              <th>
+               Basic Total
+              </th>
+              <th>
+              	Tax
+              </th>
+              <th>
+              	Tax Amount
+              </th>
+              <th>Total Price</th>
+              <th></th>
+            </tr>
+          
+
+
+            <tbody>
+              <tr ng-repeat="item in carts | reverse">
+                <td><p style="display: none;">{{item.inward=inward}}</p><input type="hidden" ng-model="item.inward" class="form-control"></td>
+                <td style="text-transform: capitalize;">{{item.p_name}}
+                  </td>
+
+                 
+                  <td>{{item.p_uom}}</td>
+                <td><input type="text" ng-model="item.basic_price" class="form-control" style="padding: .4rem 0.0rem;">
+                </td>
+                <td> 
+                <input type="text" ng-model="item.full_qty" class="form-control"  style="padding: .4rem 0.0rem;">
+                 </td>
+                 
+               
+                <!-- <td>{{cartSum() | currency:"&#x20b9;"}}</td> -->
+                <td>
+                	<input type="hidden" ng-model="item.total">
+                	{{item.total=item.basic_price * item.full_qty | currency:'&#x20b9;'}}
+                 </td>
+                 <td>
+                 	<select class="form-control" ng-model="item.selectedTax"  ng-options="x for x in taxes">
+					<option value="">Select Tax</option>
+				</select>
+                 </td>
+                 <td>
+                 	<input type="hidden" ng-model="item.taxTotal">
+                	{{item.taxTotal=(item.total * item.selectedTax)/100 | currency:'&#x20b9;'}}
+                 </td>
+                 <td>
+                 	<input type="hidden" ng-model="item.totalPrice">
+                	{{item.totalPrice=item.total + item.taxTotal | currency:'&#x20b9;'}}
+                 </td>
+                <td><button type="button" ng-click="remove_cart(item)" class="fa fa-close" style="padding: 5px; background: #F44336; border: 1px solid #F44336; color: white;"></button></td>
+                <td  style="display: none;"><p>{{item.full_quantity = item.init_stock*1 + item.full_qty*1}}</p>
+                    <input type="hidden" ng-model="item.full_quantity">
+                  </td>
+                  <td style="display: none;"><p>{{item.tdate=tdate}}</p></td>
+              </tr>
+
+        
+
+            </tbody>
+
+
+          </table>
+          <p style="display: none;"><b> Basic Total : </b>{{pageData.basictotal= (carts | sumByColumn: 'total') }}</p>
+          <p style="display: none;"><b> Tax Total/2 : </b>{{pageData.taxtotal= (carts | sumByColumn: 'taxTotal')/2 }}</p>
+          <p style="display: none;"><b> Grand Total : </b>{{pageData.grandtotal= (carts | sumByColumn: 'totalPrice') }}</p>
+   			
+   			</div>
+
+		</div>
+			
+				
+			
+      
+
+<div class="row foot">
+ 
+  <div class="col-md-4">
+    <!-- <a href=""><button class="demo" name='myName'  ng-disabled="thisForm.$invalid || isDisabled" ng-click="insertPurchaseDetails(pageData);insertPurchaseProductDetails();disableButton();insertMonthly(pageData)" style="float: left;">Submit</button></a> -->
+     <button  class="demo"  ng-click="clickToOpen()">Preview</button>
+  </div>
+  <div class="col-md-4">
+     <strong ng-hide="cartSum()==0" style="float: right;">Total Sum : {{cartSum() | currency:'&#x20b9;'}}</strong>
+  </div>
+</div>
+ 	
+ </form>
+ 
+ 
+
+         </div>
+
+          <script type="text/ng-template" id="externalTemplate.html">
+  
+         <table class="table cart-table responsive-table">
+            <tr ng-show="carts.length>0">
+              <th></th>
+              <th>
+                Product
+              </th>
+              <th>
+                UOM
+              </th>
+              <th style="width: 10%;">
+               Basic Price
+              </th>
+              <th style="width: 10%;">
+                Quantity
+              </th>
+             
+              <th>
+               Basic Total
+              </th>
+              <th>
+                Tax
+              </th>
+              <th>
+                Tax Amount
+              </th>
+              <th>Total Price</th>
+             
+            </tr>
+          
+
+
+            <tbody>
+              <tr ng-repeat="item in carts | reverse">
+                <td><p style="display: none;">{{item.inward=inward}}</p><input type="hidden" ng-model="item.inward" class="form-control"></td>
+                <td style="text-transform: capitalize;">{{item.p_name}}
+                  </td>
+
+                 
+                  <td>{{item.p_uom}}</td>
+                <td>{{item.basic_price}}
+                </td>
+                <td> 
+                {{item.full_qty}}
+                 </td>
+                 
+               
+                <!-- <td>{{cartSum() | currency:"&#x20b9;"}}</td> -->
+                <td>
+                  <input type="hidden" ng-model="item.total">
+                  {{item.total=item.basic_price * item.full_qty | currency:'&#x20b9;'}}
+                 </td>
+                 <td>
+                 {{item.selectedTax}}
+                 </td>
+                 <td>
+                  <input type="hidden" ng-model="item.taxTotal">
+                  {{item.taxTotal=(item.total * item.selectedTax)/100 | currency:'&#x20b9;'}}
+                 </td>
+                 <td>
+                  <input type="hidden" ng-model="item.totalPrice">
+                  {{item.totalPrice=item.total + item.taxTotal | currency:'&#x20b9;'}}
+                 </td>
+                
+                <td  style="display: none;"><p>{{item.full_quantity = item.init_stock*1 + item.full_qty*1}}</p>
+                    <input type="hidden" ng-model="item.full_quantity">
+                  </td>
+                  <td style="display: none;"><p>{{item.tdate=tdate}}</p></td>
+              </tr>
+
+        
+
+            </tbody>
+
+
+          </table>
+    <a href=""><button class="demo" name='myName'  ng-disabled="thisForm.$invalid || isDisabled" ng-click="insertPurchaseDetails(pageData);insertPurchaseProductDetails();disableButton();insertMonthly(pageData)" style="float: left;">Submit</button></a>
+     <div class="col-md-4 col-sm-12 col-xs-12 alert alert-success" ng-show="successMessagebool ">
+        <strong>{{successMessage }}</strong>
+    </div>
+     
+</script> 
+ <script>
+            $('select').change(function() {
+              $(this).blur();
+            })
+          </script>
